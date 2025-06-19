@@ -280,6 +280,8 @@ def apply_sky_segmentation(conf: np.ndarray, image_folder: str) -> np.ndarray:
     sky_mask_list = []
 
     print("Generating sky masks...")
+    print(image_folder)
+    print(image_files, sky_masks_dir)
     for i, image_path in enumerate(tqdm(image_files[:S])):  # Limit to the number of images in the batch
         image_name = os.path.basename(image_path)
         mask_filepath = os.path.join(sky_masks_dir, image_name)
@@ -299,6 +301,7 @@ def apply_sky_segmentation(conf: np.ndarray, image_folder: str) -> np.ndarray:
     sky_mask_array = np.array(sky_mask_list)
     # Apply sky mask to confidence scores
     sky_mask_binary = (sky_mask_array > 0.1).astype(np.float32)
+    print("shapeshape", conf.shape, sky_mask_binary.shape)
     conf = conf * sky_mask_binary
 
     print("Sky segmentation applied successfully")
