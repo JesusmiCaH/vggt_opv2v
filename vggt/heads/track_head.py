@@ -98,6 +98,8 @@ class TrackHead(nn.Module):
         if iters is None:
             iters = self.iters
 
+
+        print("llss", feature_maps.shape)
         # Perform tracking using the extracted features
         coord_preds, vis_scores, conf_scores = self.tracker(query_points=query_points, fmaps=feature_maps, iters=iters)
 
